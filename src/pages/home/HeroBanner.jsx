@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import useFetch from '../hooks/useFetch';
-import Img from '../components/LazyLoading/img';
-import ContentWrapper from '../components/ContentWrapper';
+import useFetch from '../../hooks/useFetch';
+import Img from '../../components/LazyLoading/img';
+import ContentWrapper from '../../components/ContentWrapper';
 
 const HeroBanner = () => {
   const [background, setBackground] = useState('');
@@ -36,9 +36,10 @@ const HeroBanner = () => {
     >
       {!loading && (
         <div className='w-full h-full absolute top-0 left-0 opacity-50 overflow-hidden'>
-          <img
-            src={background}
+          <Img
+            src={`${background}`}
             className={'w-full h-full object-cover object-center'}
+            alt=''
           />
         </div>
       )}
@@ -51,7 +52,7 @@ const HeroBanner = () => {
           <span className='text-lg font-medium mb-10 md:text-2xl'>
             Millions of movies, TV shows and people to discover. Explore Now.
           </span>
-          <div className='hidden md:flex items-center w-full'>
+          <div className='flex items-center w-full'>
             <input
               className='w-[calc(100%-100px)] h-12 text-blue-800 bg-white border-none outline-none rounded-l-[30px] px-4 text-sm
                     md:w-[calc(100%-150px)] md:h-16 md:text-2xl md:px-8'

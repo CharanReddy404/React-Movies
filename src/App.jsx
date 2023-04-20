@@ -7,7 +7,7 @@ import { getApiConfiguration } from './store/homeSlice';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Home from './pages/Home';
+import Home from './pages/home/Home';
 import Details from './pages/Details';
 import SearchResult from './pages/SearchResult';
 import Explore from './pages/Explore';
