@@ -14,7 +14,7 @@ const Header = () => {
   const [query, setQuery] = useState('');
   const [showSearch, setShowSearch] = useState(false);
 
-  const navigation = useNavigate();
+  const navigate = useNavigate();
   const loaction = useLocation();
 
   useEffect(() => {
@@ -34,17 +34,17 @@ const Header = () => {
   const searchQueryHandler = (e) => {
     if (e.key === 'Enter' && query.length > 0) {
       navigate(`/search/${query}`);
+      setTimeout(() => {
+        setShowSearch(false);
+      }, 100);
     }
-    setTimeout(() => {
-      setShowSearch(false);
-    }, 1000);
   };
 
   const navigationhandler = (type) => {
     if (type === 'movie') {
-      navigation('/explore/movie');
+      navigate('/explore/movie');
     } else if (type === 'tv') {
-      navigation('/explore/tv');
+      navigate('/explore/tv');
     }
     setMobileMenu(false);
   };

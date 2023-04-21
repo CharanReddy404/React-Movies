@@ -10,6 +10,8 @@ import dayjs from 'dayjs';
 import Img from './LazyLoading/img';
 import PosterFallback from '../assets/no-poster.png';
 import ContentWrapper from './ContentWrapper';
+import CircleRating from './CircleRating';
+import Genres from './Genres';
 
 const Carousel = ({ data, loading }) => {
   const carouselContainer = useRef();
@@ -17,7 +19,16 @@ const Carousel = ({ data, loading }) => {
   const url = useSelector((state) => state.home.url);
   const navigate = useNavigate();
 
-  const navigation = (dir) => {};
+  const navigation = (dir) => {
+    const container = carouselContainer.current;
+
+    const scrollAmount =
+      dir === 'left'
+        ? container.scrollLeft - (container.offsetWidth + 20)
+        : container.scrollLeft + (container.offsetWidth + 20);
+
+    container.scrollTo({ left: scrollAmount, behavior: 'smooth' });
+  };
 
   return (
     <div className='mb-[50px]'>
@@ -33,7 +44,10 @@ const Carousel = ({ data, loading }) => {
           onClick={() => navigation('right')}
         />
         {!loading ? (
-          <div className='flex gap-[10px] overflow-y-hidden mx-[-20px] px-5 md:gap-[20px] md:overflow-hidden md:m-0 md:p-0'>
+          <div
+            ref={carouselContainer}
+            className='flex gap-[10px] overflow-y-hidden mx-[-20px] px-5 md:gap-[20px] md:overflow-hidden md:m-0 md:p-0'
+          >
             {data?.map((item) => {
               const posterUrl = item.poster_path
                 ? url.poster + item.poster_path
@@ -41,10 +55,13 @@ const Carousel = ({ data, loading }) => {
               return (
                 <div
                   key={item.id}
+                  onClick={() => navigate(`/${item.media_type}/${item.id}`)}
                   className='w-[125px] cursor-pointer md:w-[calc(25% - 15px)] lg:w-[calc(20% - 16px)] flex-shrink-0'
                 >
                   <div className='relative w-full aspect-[1/1.8] bg-cover bg-center mb-[10px] flex items-end justify-between p-[10px]'>
                     <Img src={posterUrl} />
+                    <CircleRating rating={item?.vote_average.toFixed(1)} />
+                    <Genres data={item.genre_ids.slice(0, 2)} />
                   </div>
                   <div className='text-white flex flex-col'>
                     <span className='text-base mb-[10px] leading-6'>
