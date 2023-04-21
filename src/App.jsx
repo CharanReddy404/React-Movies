@@ -60,8 +60,6 @@ const App = () => {
 
   const fetchApiConfig = () => {
     fetchDataFromApi('/configuration').then((res) => {
-      console.log(res);
-
       const url = {
         backdrop: res.data.images.secure_base_url + 'original',
         poster: res.data.images.secure_base_url + 'original',
@@ -84,7 +82,6 @@ const App = () => {
     const data = await Promise.all(promises);
 
     data.map(({ data }) => {
-      console.log(data.genres);
       data.genres.map((item) => (allGenres[item.id] = item));
     });
 

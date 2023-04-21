@@ -17,9 +17,13 @@ const Explore = () => {
   const url = useSelector((state) => state.home.url);
   const navigate = useNavigate();
 
-  if (!data) return;
-
-  console.log(data.results[0]);
+  if (!data) {
+    return (
+      <div className='min-h-[300px] text-white md:mb-0 md:pt-[120px] md:min-h-[700px]'>
+        <ContentWrapper>Loading...</ContentWrapper>
+      </div>
+    );
+  }
 
   return (
     <div className='w-full bg-[#04152d] pt-[100px] mb-[50px] md:mb-0 md:pt-[120px] md:min-h-[700px]'>

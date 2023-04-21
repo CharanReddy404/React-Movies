@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ContentWrapper from '../components/ContentWrapper';
 import { useNavigate, useParams } from 'react-router-dom';
 import { fetchDataFromApi } from '../utils/api';
@@ -13,20 +13,16 @@ import PosterFallback from '../assets/no-poster.png';
 const SearchResult = () => {
   const [data, setData] = useState(null);
   const [pageNo, setPageNo] = useState(1);
-  const [loding, setLoading] = useState(false);
   const { query } = useParams();
 
   const url = useSelector((state) => state.home.url);
   const navigate = useNavigate();
 
   const fetchInitialData = () => {
-    setLoading(true);
     fetchDataFromApi(`/search/multi?query=${query}&page=${pageNo}`).then(
       (res) => {
-        console.log(res.data);
         setData(res?.data);
         setPageNo((prev) => prev + 1);
-        setLoading(false);
       }
     );
   };
@@ -51,14 +47,41 @@ const SearchResult = () => {
     fetchInitialData();
   }, [query]);
 
+  const trackScrolling = () => {
+    const element = document.getElementById('InfiScroll');
+    if (window.scrollY >= element.scrollHeight - 400) {
+      if (data?.total_pages >= pageNo) {
+        fetchNextPageData();
+      }
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', trackScrolling);
+
+    return () => {
+      window.removeEventListener('scroll', trackScrolling);
+    };
+  }, [data]);
+
   if (!data) {
-    return <div className='text-white'>Loading...</div>;
+    return (
+      <div className='min-h-[300px] text-white md:mb-0 md:pt-[120px] md:min-h-[700px]'>
+        <ContentWrapper>Loading...</ContentWrapper>
+      </div>
+    );
   }
 
   return (
-    <div className='w-full min-h-[300px] bg-[#04152d] pt-[100px] mb-[50px] md:mb-0 md:pt-[120px] md:min-h-[700px]'>
+    <div className='w-full min-h-[300px] bg-[#04152d] pt-[80px] mb-[50px] md:mb-0 md:pt-[120px] md:min-h-[700px]'>
       <ContentWrapper>
-        <div className='flex flex-wrap gap-5 justify-center mb-8'>
+        <div className='text-white mb-5 md:ml-4 md:text-lg'>
+          Search results of '{query}'
+        </div>
+        <div
+          id='InfiScroll'
+          className='flex flex-wrap gap-5 justify-center mb-8'
+        >
           {data.results.length > 0 ? (
             data?.results?.map((item) => {
               const posterUrl = item.poster_path
