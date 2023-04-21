@@ -18,6 +18,7 @@ const Header = () => {
   const loaction = useLocation();
 
   useEffect(() => {
+    setShow(false);
     window.scrollTo(0, 0);
   }, [loaction]);
 

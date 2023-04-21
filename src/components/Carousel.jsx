@@ -13,7 +13,7 @@ import ContentWrapper from './ContentWrapper';
 import CircleRating from './CircleRating';
 import Genres from './Genres';
 
-const Carousel = ({ data, loading }) => {
+const Carousel = ({ data, loading, endpoint }) => {
   const carouselContainer = useRef();
 
   const url = useSelector((state) => state.home.url);
@@ -55,7 +55,9 @@ const Carousel = ({ data, loading }) => {
               return (
                 <div
                   key={item.id}
-                  onClick={() => navigate(`/${item.media_type}/${item.id}`)}
+                  onClick={() =>
+                    navigate(`/${item.media_type || endpoint}/${item.id}`)
+                  }
                   className='w-[125px] cursor-pointer md:w-[calc(25% - 15px)] lg:w-[calc(20% - 16px)] flex-shrink-0'
                 >
                   <div className='relative w-full aspect-[1/1.8] bg-cover bg-center mb-[10px] flex items-end justify-between p-[10px]'>
