@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-const Genres = ({ data }) => {
+const Genres = ({ data, className }) => {
   const genres = useSelector((state) => state.home.genres);
   return (
-    <div className='relative flex flex-wrap gap-[5px]'>
+    <div className={'relative flex flex-wrap gap-[5px]'}>
       {data?.map((g) => {
         if (!genres[g]) {
           return;

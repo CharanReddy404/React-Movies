@@ -62,6 +62,9 @@ const HeroBanner = () => {
               onKeyUp={searchQueryHandler}
             />
             <button
+              onClick={() => {
+                navigate(`/search/${query}`);
+              }}
               className='w-24 h-12 font-bold bg-gradient-to-r from-[#f89e00] to-[#da2f68] text-white outline-none border-none rounded-r-[30px]  text-base cursor-pointer
                     md:w-36 md:h-16 md:text-lg'
             >

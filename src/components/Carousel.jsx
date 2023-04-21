@@ -61,7 +61,7 @@ const Carousel = ({ data, loading, endpoint }) => {
                   className='w-[125px] cursor-pointer md:w-[calc(25% - 15px)] lg:w-[calc(20% - 16px)] flex-shrink-0'
                 >
                   <div className='relative w-full aspect-[1/1.8] bg-cover bg-center mb-[10px] flex items-end justify-between p-[10px]'>
-                    <Img src={posterUrl} />
+                    <Img className={'absolute top-0 left-0'} src={posterUrl} />
                     <CircleRating rating={item?.vote_average.toFixed(1)} />
                     <Genres data={item.genre_ids.slice(0, 2)} />
                   </div>

@@ -10,7 +10,7 @@ import ContentWrapper from './ContentWrapper';
 
 const Footer = () => {
   return (
-    <footer className='text-white flex shadow-xl py-5 bg-slate-950 '>
+    <footer className='bg-slate-950 text-white flex shadow-xl py-5 '>
       <ContentWrapper>
         <ul className='flex text-sm justify-evenly pb-2 m-2'>
           <li className=''>Terms Of Use</li>
