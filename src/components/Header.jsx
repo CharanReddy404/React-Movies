@@ -78,8 +78,9 @@ const Header = () => {
       <ContentWrapper>
         <div className='flex text-white justify-between items-center'>
           <div className=''>
-            <a href='/'>
-              <img src={logo} alt='' />
+            <a href='/' className='text-xl font-bold text-orange-500'>
+              {/* <img src={logo} alt='' /> */}
+              React Movies
             </a>
           </div>
           <ul className='hidden md:flex items-center font-bold text-xl '>
